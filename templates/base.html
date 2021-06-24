@@ -1,0 +1,66 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+      integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Search engine</title>
+  </head>
+  <body>
+    <br>
+    <div class = 'container'>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <strong class="button is-outlined">User: {{user.username}}</strong>
+        </div>
+      
+      
+        <div class="navbar-end">
+          <a href="{%url 'logout' %} " class="button is-danger">Logout</a>
+        </div>
+      </div>
+      <div class="search">
+        <div class="logo">
+          <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" />
+        </div>
+        <form method="POST" action="search">
+          {% csrf_token %}
+          <input class="search-bar" type="text" name="search" autofocus x-webkit-speech />
+          <div class="search-nav">
+            <div class="search-button">
+              <a href="#"><button type="submit">Search</button></a>
+      
+      
+            </div>
+          </div>
+        </form>
+      
+      </div>
+      {% if final_result %}
+      <b style="padding-left: 50px; padding-right: 50px; color: #646464;">Web Results</b>
+      {% for result in final_result %}
+      <div style="padding-left: 50px; padding-right: 50px;">
+        <h3 style="color: blue;"><a href="{{ result.1 }}" target="_blank">{{ result.0 }}</a></h3>
+        <h3 style="color: green;">{{ result.1 }}</h3>
+        <h3>{{ result.2 }}</h3>
+      </div><br><br>
+      {% endfor %}
+      {% endif %}
+
+    </div>
+    
+    
+    
+
+  
+
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </body>
+</html>
